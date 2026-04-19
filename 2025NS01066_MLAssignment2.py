@@ -36,13 +36,12 @@ plt.rcParams['figure.dpi'] = 110
 # ─────────────────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="ML Assignment 2 — Student Performance",
-    page_icon="🎓",
     layout="wide"
 )
 
-st.title("🎓 Early Warning System for Student Performance")
+st.title("Early Warning System for Student Performance")
 st.markdown(
-    "**ML Assignment 2 — BTEEZC512 | Student ID: 2025NS01066**  \n"
+    "**ML Assignment 2 | Student ID: 2025NS01066**  \n"
     "Upload `StudentPerformance_Dataset.csv` to run the full pipeline."
 )
 st.divider()
@@ -51,7 +50,7 @@ st.divider()
 # FILE UPLOAD  (replaces: from google.colab import files / files.upload())
 # ─────────────────────────────────────────────────────────────────────────────
 uploaded_file = st.file_uploader(
-    "📂 Upload StudentPerformance_Dataset.csv", type=["csv"]
+    "Upload StudentPerformance_Dataset.csv", type=["csv"]
 )
 if uploaded_file is None:
     st.info("Please upload the dataset CSV to proceed.")
@@ -64,7 +63,7 @@ st.success(f"Dataset loaded — {len(df)} rows × {len(df.columns)} columns.")
 # TASK 1 — PROBLEM UNDERSTANDING
 # (notebook Cell 4 — problem type, X/y definition, class distribution)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("Task 1: Problem Understanding")
+st.header("Problem Understanding")
 
 col_t1a, col_t1b = st.columns(2)
 
@@ -108,7 +107,7 @@ st.divider()
 # TASK 2 — DATA PREPROCESSING
 # (notebook Cells 5–14)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("Task 2: Data Preprocessing")
+st.header("Data Preprocessing")
 
 # 2.1 Missing values (Cell 6)
 st.subheader("2.1 Missing Value Check")
@@ -172,7 +171,7 @@ st.divider()
 # TASK 3 — EDA
 # (notebook Cells 15–22)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("Task 3: Exploratory Data Analysis (EDA)")
+st.header("Exploratory Data Analysis (EDA)")
 
 # 3.1 Distribution (Cell 16)
 st.subheader("3.1 Pass vs Fail Distribution")
@@ -299,7 +298,7 @@ st.divider()
 # TASK 4 — MODEL DEVELOPMENT
 # (notebook Cells 23–40)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("Task 4: Model Development")
+st.header("Model Development")
 st.info("Training all 8 models — please wait...")
 
 # 4.1 Logistic Regression (Cell 24)
@@ -446,7 +445,7 @@ st.divider()
 # TASK 5 — MODEL EVALUATION
 # (notebook Cells 41–46)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("Task 5: Model Evaluation")
+st.header("Model Evaluation")
 
 # 5.1 Metrics summary (Cell 42)
 st.subheader("5.1 Metrics Summary — All 8 Models")
@@ -567,7 +566,7 @@ st.divider()
 # TASK 6 — FEATURE IMPORTANCE & INSIGHTS
 # (notebook Cells 47–50)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("Task 6: Feature Importance and Insights")
+st.header("Feature Importance and Insights")
 
 # 6.1 RF vs GB importance (Cell 48)
 st.subheader("6.1 Feature Importance — Random Forest vs Gradient Boosting")
@@ -672,7 +671,7 @@ st.divider()
 # TASK 7 — RECOMMENDATIONS
 # (notebook Cell — added in updated notebook, replaces: print recommendations)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("Task 7: Recommendations")
+st.header("Recommendations")
 st.markdown(
     "Five evidence-based actionable recommendations based on feature importance, "
     "pass rate analysis, and model insights:"
@@ -722,7 +721,7 @@ recommendations = [
 ]
 
 for rec in recommendations:
-    with st.expander(f"{rec['icon']} {rec['title']}", expanded=True):
+    with st.expander(f"{rec['title']}", expanded=True):
         col_e, col_a, col_k = st.columns(3)
         col_e.markdown(f"**Evidence**\n\n{rec['evidence']}")
         col_a.markdown(f"**Action**\n\n{rec['action']}")
@@ -788,7 +787,7 @@ with col2:
     internet_usage = st.selectbox("Internet Usage", le.classes_)
     extra_coaching = st.selectbox("Extra Coaching", ["No", "Yes"])
 
-if st.button("🚀 Predict", type="primary"):
+if st.button("Predict", type="primary"):
     new_student = pd.DataFrame({
         'Study_Hours':      [study_hours],
         'Attendance':       [attendance],
