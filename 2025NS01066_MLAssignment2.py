@@ -572,11 +572,13 @@ st.header("Feature Importance and Insights")
 st.subheader("6.1 Feature Importance — Random Forest vs Gradient Boosting")
 rf_imp = pd.Series(rf.feature_importances_, index=X.columns).sort_values(ascending=True)
 gb_imp = pd.Series(gb.feature_importances_, index=X.columns).sort_values(ascending=True)
+dt_imp = pd.Series(gb.feature_importances_, index=X.columns).sort_values(ascending=True)
 
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 for ax, (imp, title, color) in zip(axes, [
     (rf_imp, 'Random Forest',    '#27ae60'),
     (gb_imp, 'Gradient Boosting','#e67e22'),
+    (dt_imp, 'Decision Tree',    '#00FFFF'),
 ]):
     bars = ax.barh(imp.index, imp.values, color=color, edgecolor='white')
     for bar, val in zip(bars, imp.values):
@@ -586,19 +588,20 @@ for ax, (imp, title, color) in zip(axes, [
     ax.set_xlabel('Importance Score')
     ax.axvline(x=1/7, color='navy', ls='--', alpha=0.5, label='Equal baseline (1/7)')
     ax.legend()
-plt.suptitle('RF vs Gradient Boosting Feature Importance', fontsize=13, fontweight='bold')
+plt.suptitle('RF vs Gradient Boosting vs Decision Tree Feature Importance', fontsize=13, fontweight='bold')
 plt.tight_layout()
 st.pyplot(fig)
 plt.close()
 
 rank_data = sorted(
-    zip(X.columns, rf.feature_importances_, gb.feature_importances_),
+    zip(X.columns, rf.feature_importances_, gb.feature_importances_, dt.feature_importances_),
     key=lambda x: -x[1]
 )
-rank_df = pd.DataFrame(rank_data, columns=['Feature','RF Score','GB Score'])
+rank_df = pd.DataFrame(rank_data, columns=['Feature','RF Score','GB Score','Decision Tree'])
 rank_df.insert(0, 'Rank', range(1, len(rank_df)+1))
 rank_df['RF Score'] = rank_df['RF Score'].round(4)
 rank_df['GB Score'] = rank_df['GB Score'].round(4)
+rank_df['DT Score'] = rank_df['DT Score'].round(4)
 st.dataframe(rank_df, hide_index=True, use_container_width=False)
 
 # 6.2 Sleep Hours & Extra Coaching analysis (Cell 50)
