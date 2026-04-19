@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 2025NS01066 — ML Assignment 2
 Early Warning System for Student Performance
@@ -92,7 +91,7 @@ with col_t1b:
     counts = df['Pass'].value_counts()
     for label, count in counts.items():
         st.write(
-            f'{"Pass ✅" if label==1 else "Fail ❌"} ({label}) : '
+            f'{"Pass" if label==1 else "Fail"} ({label}) : '
             f'**{count}** students ({count/len(df)*100:.1f}%)'
         )
     st.subheader("Dataset Preview")
@@ -681,7 +680,6 @@ st.markdown(
 
 recommendations = [
     {
-        "icon":     "🎯",
         "title":    "1. Enforce Minimum Attendance Policy (Target ≥ 75%)",
         "evidence": "Attendance is a top-3 most important feature. Students with < 55% attendance "
                     "have near-zero pass rates; those above 85% pass at dramatically higher rates.",
@@ -690,7 +688,6 @@ recommendations = [
         "kpi":      "Reduce students with < 65% attendance by 40% within one semester.",
     },
     {
-        "icon":     "📝",
         "title":    "2. Early Assignment Score Interventions",
         "evidence": "Assignment_Score is a high-importance, early-available signal. Students scoring "
                     "below 40 on assignments have dramatically lower pass rates.",
@@ -699,7 +696,6 @@ recommendations = [
         "kpi":      "Raise average assignment score of flagged students by 10 points within 4 weeks.",
     },
     {
-        "icon":     "📚",
         "title":    "3. Promote Structured Study Habits (≥ 4 Hours / Day)",
         "evidence": "Study_Hours shows a near-linear positive relationship with pass rate. "
                     "Students studying ≥ 4 hours/day consistently outperform those who study less.",
@@ -708,7 +704,6 @@ recommendations = [
         "kpi":      "Increase median self-reported study hours to ≥ 4 hours/day within one month.",
     },
     {
-        "icon":     "🏫",
         "title":    "4. Expand Extra Coaching Access for At-Risk Students",
         "evidence": f"Students with extra coaching pass at {yes_c:.1f}% vs {no_c:.1f}% without — "
                     f"a +{yes_c-no_c:.1f} pp improvement.",
@@ -717,7 +712,6 @@ recommendations = [
         "kpi":      "Enrol ≥ 80% of model-flagged at-risk students in supplementary coaching each semester.",
     },
     {
-        "icon":     "🤖",
         "title":    "5. Deploy the ML Early Warning System with Weekly Re-scoring",
         "evidence": f"Best model ({best_model_name}) achieves strong Recall — reliably identifying "
                     "failing students before the final examination.",
@@ -730,9 +724,9 @@ recommendations = [
 for rec in recommendations:
     with st.expander(f"{rec['icon']} {rec['title']}", expanded=True):
         col_e, col_a, col_k = st.columns(3)
-        col_e.markdown(f"**📊 Evidence**\n\n{rec['evidence']}")
-        col_a.markdown(f"**⚡ Action**\n\n{rec['action']}")
-        col_k.markdown(f"**🎯 KPI**\n\n{rec['kpi']}")
+        col_e.markdown(f"**Evidence**\n\n{rec['evidence']}")
+        col_a.markdown(f"**Action**\n\n{rec['action']}")
+        col_k.markdown(f"**KPI**\n\n{rec['kpi']}")
 
 st.divider()
 
@@ -766,9 +760,9 @@ pickle.dump(artifacts, buf)
 buf.seek(0)
 
 st.download_button(
-    label="⬇️ Download model_artifacts.pkl",
+    label="Download model_artifacts.pkl",
     data=buf,
-    file_name="model_artifacts.pkl",
+    file_name="2025NS01066_MLAssignment2_ModelArtifacts.pkl",
     mime="application/octet-stream",
 )
 st.divider()
@@ -777,7 +771,7 @@ st.divider()
 # LIVE PREDICTION
 # (notebook Cell 54 — replaces: for-loop print → interactive Streamlit widgets)
 # ─────────────────────────────────────────────────────────────────────────────
-st.header("🔮 Live Student Prediction")
+st.header("Live Student Prediction")
 st.markdown(
     "Adjust the inputs below to get an instant Pass/Fail prediction "
     "from all 8 trained models simultaneously."
@@ -824,7 +818,7 @@ if st.button("🚀 Predict", type="primary"):
         prob  = model.predict_proba(data)[0]
         pred_results.append({
             'Model':         name,
-            'Prediction':    '✅ PASS' if pred == 1 else '❌ FAIL',
+            'Prediction':    'PASS' if pred == 1 else 'FAIL',
             'Fail Prob (%)': f'{prob[0]*100:.1f}%',
             'Pass Prob (%)': f'{prob[1]*100:.1f}%',
         })
