@@ -572,7 +572,7 @@ st.header("Feature Importance and Insights")
 st.subheader("6.1 Feature Importance — Random Forest vs Gradient Boosting")
 rf_imp = pd.Series(rf.feature_importances_, index=X.columns).sort_values(ascending=True)
 gb_imp = pd.Series(gb.feature_importances_, index=X.columns).sort_values(ascending=True)
-dt_imp = pd.Series(gb.feature_importances_, index=X.columns).sort_values(ascending=True)
+dt_imp = pd.Series(dt.feature_importances_, index=X.columns).sort_values(ascending=True)
 
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 for ax, (imp, title, color) in zip(axes, [
